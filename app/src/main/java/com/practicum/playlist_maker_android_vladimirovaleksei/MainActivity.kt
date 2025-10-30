@@ -1,7 +1,8 @@
 package com.practicum.playlist_maker_android_vladimirovaleksei
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -21,10 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.ArrowForwardGray
@@ -35,15 +34,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            MainScreen(activity = this@MainActivity)
         }
     }
 }
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(activity: Activity) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -68,39 +66,47 @@ fun MainScreen() {
             modifier = Modifier
                 .padding(paddingValues)
                 .background(Color.White)
-                .fillMaxSize()
+                .fillMaxSize(),
+            activity = activity
         )
     }
 }
 
 @Composable
 fun NavigationMenu(
-    modifier: Modifier
+    modifier: Modifier,
+    activity: Activity
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
-        NavigationMenuButton(R.drawable.ic_search, R.string.search)
-        NavigationMenuButton(R.drawable.ic_library, R.string.playlists)
-        NavigationMenuButton(R.drawable.ic_favorite_border, R.string.favorite)
-        NavigationMenuButton(R.drawable.ic_settings, R.string.settings)
+        NavigationMenuButton(R.drawable.ic_search, R.string.search) {
+            val intent = Intent(activity, SearchActivity::class.java)
+            activity.startActivity(intent)
+        }
+        NavigationMenuButton(R.drawable.ic_library, R.string.playlists) {
+            val intent = Intent(activity, LibraryActivity::class.java)
+            activity.startActivity(intent)
+        }
+        NavigationMenuButton(R.drawable.ic_favorite_border, R.string.favorite) {
+            val intent = Intent(activity, FavoriteActivity::class.java)
+            activity.startActivity(intent)
+        }
+        NavigationMenuButton(R.drawable.ic_settings, R.string.settings) {
+            val intent = Intent(activity, SettingsActivity::class.java)
+            activity.startActivity(intent)
+        }
     }
 }
 @Composable
 fun NavigationMenuButton(
     iconId: Int,
-    titleId: Int
+    titleId: Int,
+    onClick: () -> Unit
 ) {
-    val context = LocalContext.current
-    val buttonName = stringResource(id = titleId)
 
     TextButton(
-        onClick = {
-            Toast.makeText(
-                context,
-                "Нажата кнопка \"$buttonName\"",
-                Toast.LENGTH_SHORT).show()
-        },
+        onClick = onClick,
         modifier = Modifier
             .padding(14.dp)
             .fillMaxWidth(),
