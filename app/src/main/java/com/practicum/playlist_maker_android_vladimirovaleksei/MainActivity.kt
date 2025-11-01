@@ -19,6 +19,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,14 +30,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.ArrowForwardGray
+import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.IconDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.MainBlue
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansFamily
+import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansMedium
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            var darkTheme by remember { mutableStateOf(false) }
             MainScreen(activity = this@MainActivity)
         }
     }
@@ -45,9 +50,9 @@ fun MainScreen(activity: Activity) {
     Scaffold(
         topBar = {
             TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MainBlue,
-                    titleContentColor = Color.White
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MainBlue,
+                        titleContentColor = Color.White
                 ),
                 title = {
                     Text(
@@ -55,7 +60,7 @@ fun MainScreen(activity: Activity) {
                             .fillMaxSize()
                             .padding(top = 14.dp),
                         text = stringResource(id = R.string.main_appname),
-                        fontFamily = yandexSansFamily
+                        fontFamily = yandexSansMedium
                     )
                 },
                 expandedHeight = 76.dp
@@ -124,11 +129,11 @@ fun NavigationMenuButton(
                 .fillMaxWidth()
                 .weight(9f),
             text = stringResource(id = titleId),
-            fontFamily = yandexSansFamily,
+            fontFamily = yandexSansMedium,
             fontSize = 22.sp
             )
         Icon(
-            tint = ArrowForwardGray,
+            tint = IconDarkGray,
             painter = painterResource(id = R.drawable.ic_arrow_forward),
             contentDescription = stringResource(id = R.string.arrow_forward)
         )

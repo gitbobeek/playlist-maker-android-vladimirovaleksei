@@ -35,6 +35,10 @@ val Typography = Typography(
     */
 )
 
-val yandexSansFamily = FontFamily(
+val yandexSansMedium = FontFamily(
     Font(R.font.ys_medium, FontWeight.Medium)
+)
+
+val yandexSansRegular = FontFamily(
+    Font(R.font.ys_regular)
 )
