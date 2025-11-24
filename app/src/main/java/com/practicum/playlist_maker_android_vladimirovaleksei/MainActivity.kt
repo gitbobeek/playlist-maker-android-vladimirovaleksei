@@ -30,7 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.IconDarkGray
+import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.MainBlue
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansMedium
 
@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var darkTheme by remember { mutableStateOf(false) }
             MainScreen(activity = this@MainActivity)
         }
     }
@@ -133,7 +132,7 @@ fun NavigationMenuButton(
             fontSize = 22.sp
             )
         Icon(
-            tint = IconDarkGray,
+            tint = YpDarkGray,
             painter = painterResource(id = R.drawable.ic_arrow_forward),
             contentDescription = stringResource(id = R.string.arrow_forward)
         )

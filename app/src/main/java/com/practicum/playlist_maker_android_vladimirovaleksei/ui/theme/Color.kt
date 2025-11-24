@@ -11,10 +11,12 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val MainBlue = Color(0xFF3772E7)
-val IconDarkGray = Color(0xFFAEAFB4)
+val YpDarkGray = Color(0xFFAEAFB4)
 
-val IconLightGray = Color(0xFAE6E8EB)
+val YpLightGray = Color(0xFAE6E8EB)
 
 val IconLightBlue = Color(0xFF3772E7)
 
 val IconSemitransparentBlue = Color(0x803772E7)
+
+val BlueAccents = Color(0xFF3F8AE0)
