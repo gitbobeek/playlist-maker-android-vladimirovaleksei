@@ -1,8 +1,5 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei
+package com.practicum.playlist_maker_android_vladimirovaleksei.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,34 +25,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.practicum.playlist_maker_android_vladimirovaleksei.R
+import com.practicum.playlist_maker_android_vladimirovaleksei.composables.SecondaryTopAppBar
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.BlueAccents
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpLightGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansRegular
 
-class SearchActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            SearchScreen()
-        }
-    }
-}
-
-@Preview(showSystemUi = true, device = "spec:width=411dp,height=891dp")
 @Composable
-fun SearchScreenPreview() {
-    SearchScreen()
-}
-
-@Composable
-fun SearchScreen() {
+fun SearchScreen(onClick: () -> Unit) {
     Scaffold(
         topBar = {
-            SecondaryTopAppBar(R.string.search)
+            SecondaryTopAppBar(R.string.search) { onClick() }
         }
     ) { paddingValues ->
         SearchField(

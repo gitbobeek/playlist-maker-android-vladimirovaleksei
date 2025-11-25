@@ -1,7 +1,5 @@
 package com.practicum.playlist_maker_android_vladimirovaleksei
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,14 +32,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen(activity = this@MainActivity)
+            PlaylistHost()
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(activity: Activity) {
+fun MainScreen(
+    onSearch:    () -> Unit,
+    onPlaylists: () -> Unit,
+    onFavorite:  () -> Unit,
+    onSettings:  () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -67,7 +70,10 @@ fun MainScreen(activity: Activity) {
                 .padding(paddingValues)
                 .background(Color.White)
                 .fillMaxSize(),
-            activity = activity
+            onSearch = onSearch,
+            onPlaylists = onPlaylists,
+            onFavorite = onFavorite,
+            onSettings = onSettings,
         )
     }
 }
@@ -75,29 +81,29 @@ fun MainScreen(activity: Activity) {
 @Composable
 fun NavigationMenu(
     modifier: Modifier,
-    activity: Activity
-) {
+    onSearch:    () -> Unit,
+    onPlaylists: () -> Unit,
+    onFavorite:  () -> Unit,
+    onSettings:  () -> Unit
+    ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
         NavigationMenuButton(R.drawable.ic_search, R.string.search) {
-            val intent = Intent(activity, SearchActivity::class.java)
-            activity.startActivity(intent)
+            onSearch()
         }
         NavigationMenuButton(R.drawable.ic_library, R.string.playlists) {
-            val intent = Intent(activity, LibraryActivity::class.java)
-            activity.startActivity(intent)
+            onPlaylists()
         }
         NavigationMenuButton(R.drawable.ic_favorite_border, R.string.favorite) {
-            val intent = Intent(activity, FavoriteActivity::class.java)
-            activity.startActivity(intent)
+            onFavorite()
         }
         NavigationMenuButton(R.drawable.ic_settings, R.string.settings) {
-            val intent = Intent(activity, SettingsActivity::class.java)
-            activity.startActivity(intent)
+            onSettings()
         }
     }
 }
+
 @Composable
 fun NavigationMenuButton(
     iconId: Int,

@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei
+package com.practicum.playlist_maker_android_vladimirovaleksei.composables
 
 import androidx.annotation.StringRes
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,12 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.practicum.playlist_maker_android_vladimirovaleksei.R
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansMedium
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SecondaryTopAppBar(
-    @StringRes titleId: Int
+    @StringRes titleId: Int,
+    onClick: () -> Unit
 ) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
@@ -30,7 +32,7 @@ fun SecondaryTopAppBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = onClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_arrow_back),
                     contentDescription = stringResource(id = R.string.go_back)

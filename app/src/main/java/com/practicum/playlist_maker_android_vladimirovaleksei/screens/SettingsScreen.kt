@@ -1,11 +1,8 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei
+package com.practicum.playlist_maker_android_vladimirovaleksei.screens
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,28 +21,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import com.practicum.playlist_maker_android_vladimirovaleksei.R
+import com.practicum.playlist_maker_android_vladimirovaleksei.composables.SecondaryTopAppBar
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansRegular
 
-class SettingsActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            SettingsScreen()
-        }
-    }
-}
-
-@Preview
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(onClick: () -> Unit) {
     Scaffold(
         topBar = {
-            SecondaryTopAppBar(R.string.settings)
+            SecondaryTopAppBar(R.string.settings, onClick)
         }
     ) { paddingValues ->
         SettingsMenu(
@@ -75,7 +63,7 @@ fun SettingsMenu(modifier: Modifier) {
         SettingsMenuButton(R.string.share, R.drawable.ic_share) {
             val sendIntent: Intent = Intent(Intent.ACTION_SEND).apply {
                 putExtra(Intent.EXTRA_TEXT, message)
-                type = "text/plain"
+                setType("text/plain")
             }
 
             val shareIntent = Intent.createChooser(sendIntent, null)
@@ -84,7 +72,7 @@ fun SettingsMenu(modifier: Modifier) {
         SettingsMenuButton(R.string.support, R.drawable.ic_support) {
 
             val emailIntent: Intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = "mailto:".toUri()
+                setData("mailto:".toUri())
                 putExtra(Intent.EXTRA_EMAIL, mailAddress)
                 putExtra(Intent.EXTRA_SUBJECT, mailSubject)
                 putExtra(Intent.EXTRA_TEXT, mailBody)
