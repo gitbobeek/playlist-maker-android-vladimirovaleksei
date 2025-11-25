@@ -2,9 +2,11 @@ package com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.practicum.playlist_maker_android_vladimirovaleksei.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,4 +33,12 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val yandexSansMedium = FontFamily(
+    Font(R.font.ys_medium, FontWeight.Medium)
+)
+
+val yandexSansRegular = FontFamily(
+    Font(R.font.ys_regular)
 )
