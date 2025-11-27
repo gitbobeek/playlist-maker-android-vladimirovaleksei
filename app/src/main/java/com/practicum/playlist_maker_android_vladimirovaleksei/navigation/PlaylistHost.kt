@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei
+package com.practicum.playlist_maker_android_vladimirovaleksei.navigation
 
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -29,7 +29,7 @@ fun PlaylistHost() {
             route = home,
             exitTransition = { horizontalSlideExitTransition() }
         ) {
-            MainScreen(
+            _root_ide_package_.com.practicum.playlist_maker_android_vladimirovaleksei.MainScreen(
                 onSearch = { navController.navigate(Routes.Search.route) },
                 onPlaylists = { navController.navigate(Routes.Library.route) },
                 onFavorite = { navController.navigate(Routes.Favorite.route) },
