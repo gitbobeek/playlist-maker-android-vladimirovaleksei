@@ -9,4 +9,8 @@ class TrackSearchInteractorImpl(private val repository: TrackRepository) : Track
     override fun searchTracks(expression: String): List<Track> {
         return repository.searchTracks(expression)
     }
+
+    override fun loadTrackData(trackId: String, onComplete: () -> Unit) {
+        TODO("Not yet implemented")
+    }
 }
