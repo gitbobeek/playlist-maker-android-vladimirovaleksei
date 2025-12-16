@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.screens
+package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.practicum.playlist_maker_android_vladimirovaleksei.R
-import com.practicum.playlist_maker_android_vladimirovaleksei.composables.SecondaryTopAppBar
+import com.practicum.playlist_maker_android_vladimirovaleksei.ui.components.SecondaryTopAppBar
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.BlueAccents
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpLightGray

@@ -55,14 +55,13 @@ fun MainScreen(
                 ),
                 title = {
                     Text(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 14.dp),
+                        modifier = Modifier.padding(bottom = 24.dp),
                         text = stringResource(id = R.string.main_appname),
-                        fontFamily = yandexSansMedium
+                        fontFamily = yandexSansMedium,
+                        fontSize = 22.sp
                     )
                 },
-                expandedHeight = 76.dp
+                expandedHeight = 64.dp
             )
         }
     ) { paddingValues ->
