@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.composables
+package com.practicum.playlist_maker_android_vladimirovaleksei.ui.components
 
 import androidx.annotation.StringRes
 import androidx.compose.material3.ExperimentalMaterial3Api

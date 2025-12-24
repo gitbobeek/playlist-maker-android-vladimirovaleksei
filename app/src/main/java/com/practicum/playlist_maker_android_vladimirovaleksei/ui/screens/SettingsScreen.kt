@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.screens
+package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import com.practicum.playlist_maker_android_vladimirovaleksei.R
-import com.practicum.playlist_maker_android_vladimirovaleksei.composables.SecondaryTopAppBar
+import com.practicum.playlist_maker_android_vladimirovaleksei.ui.components.SecondaryTopAppBar
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansRegular
 

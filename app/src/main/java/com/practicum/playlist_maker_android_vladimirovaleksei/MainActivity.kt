@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.practicum.playlist_maker_android_vladimirovaleksei.navigation.PlaylistHost
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.MainBlue
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansMedium
@@ -54,14 +55,13 @@ fun MainScreen(
                 ),
                 title = {
                     Text(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 14.dp),
+                        modifier = Modifier.padding(bottom = 24.dp),
                         text = stringResource(id = R.string.main_appname),
-                        fontFamily = yandexSansMedium
+                        fontFamily = yandexSansMedium,
+                        fontSize = 22.sp
                     )
                 },
-                expandedHeight = 76.dp
+                expandedHeight = 64.dp
             )
         }
     ) { paddingValues ->
