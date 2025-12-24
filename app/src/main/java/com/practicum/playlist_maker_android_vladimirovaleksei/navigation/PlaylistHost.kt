@@ -7,7 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.practicum.playlist_maker_android_vladimirovaleksei.MainScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.FavoriteScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.LibraryScreen
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.SearchScreen
+import com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.search.SearchScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.SettingsScreen
 
 @Composable
@@ -37,9 +37,7 @@ fun PlaylistHost() {
         }
 
         composable(route = Routes.Search.route) {
-            SearchScreen {
-                navController.popBackStack()
-            }
+            SearchScreen(onClick = {navController.popBackStack()})
         }
 
         composable(route = Routes.Settings.route) {
