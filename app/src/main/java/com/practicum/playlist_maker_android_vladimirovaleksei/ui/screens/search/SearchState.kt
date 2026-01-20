@@ -1,6 +1,6 @@
 package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.search
 
-import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.Track
+import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Track
 
 sealed class SearchState {
     object Initial: SearchState()
