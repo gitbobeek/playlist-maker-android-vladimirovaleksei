@@ -9,7 +9,7 @@ class SearchHistoryRepositoryImpl(private val scope: CoroutineScope): SearchHist
     private val database = DatabaseMock(scope = scope)
 
     override fun getHistoryRequests(): List<Word> {
-        return database.getHistoryRequests()
+        return database.getHistory()
     }
 
     override fun addToHistory(word: Word) {
