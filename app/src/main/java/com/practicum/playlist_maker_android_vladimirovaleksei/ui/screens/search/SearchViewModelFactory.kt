@@ -2,7 +2,6 @@ package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.TrackRepositoryImpl
 import com.practicum.playlist_maker_android_vladimirovaleksei.domain.api.TrackRepository
 
 class SearchViewModelFactory(

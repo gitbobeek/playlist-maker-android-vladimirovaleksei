@@ -23,4 +23,5 @@
     <string name="search_placeholder">Поиск\n</string>
     <string name="no_songs_found">Ничего не нашлось</string>
     <string name="error">При поиске возникла ошибка</string>
+    <string name="add_playlist">Добавить плейлист\n</string>
 </resources>
