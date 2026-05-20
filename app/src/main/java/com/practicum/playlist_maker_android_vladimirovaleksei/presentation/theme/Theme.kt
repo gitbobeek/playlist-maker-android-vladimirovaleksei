@@ -1,6 +1,5 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

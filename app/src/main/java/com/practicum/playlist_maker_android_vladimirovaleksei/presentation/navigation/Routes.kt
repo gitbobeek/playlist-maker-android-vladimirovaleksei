@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.navigation
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.navigation
 
 sealed class Routes(val route: String) {
     object Main : Routes("main")

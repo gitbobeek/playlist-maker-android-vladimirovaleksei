@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.ui.components
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components
 
 import androidx.annotation.StringRes
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.practicum.playlist_maker_android_vladimirovaleksei.R
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansMedium
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.yandexSansMedium
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.search
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -36,12 +36,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.practicum.playlist_maker_android_vladimirovaleksei.R
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.components.SecondaryTopAppBar
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.components.TrackListItem
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.BlueAccents
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpLightGray
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansRegular
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components.SecondaryTopAppBar
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components.TrackListItem
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.BlueAccents
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.YpDarkGray
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.YpLightGray
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.yandexSansRegular
 
 @Composable
 fun SearchScreen(

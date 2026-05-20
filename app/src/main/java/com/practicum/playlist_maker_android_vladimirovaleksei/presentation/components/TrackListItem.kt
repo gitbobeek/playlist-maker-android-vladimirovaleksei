@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.ui.components
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable

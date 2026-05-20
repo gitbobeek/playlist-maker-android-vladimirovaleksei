@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.search
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

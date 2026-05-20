@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.search
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.Word
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpLightGray
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.YpLightGray
 
 @Composable
 fun HistoryRequests(

@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.ui.screens.playlists
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlists
 
 import androidx.compose.foundation.R
 import androidx.compose.foundation.background
@@ -28,8 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Playlist
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.components.PlaylistListItem
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components.PlaylistListItem
 
 @Composable
 fun PlaylistsScreen(
