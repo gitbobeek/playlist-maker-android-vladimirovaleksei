@@ -24,4 +24,8 @@
     <string name="no_songs_found">Ничего не нашлось</string>
     <string name="error">При поиске возникла ошибка</string>
     <string name="add_playlist">Добавить плейлист\n</string>
+    <string name="unknown_track">Неизвестный трек</string>
+    <string name="unknown_artist">Неизвестный исполнитель</string>
+    <string name="track">Трек</string>
+    <string name="refresh">Обновить</string>
 </resources>

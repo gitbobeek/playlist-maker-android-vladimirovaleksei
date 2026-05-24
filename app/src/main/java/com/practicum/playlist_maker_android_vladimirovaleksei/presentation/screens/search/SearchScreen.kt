@@ -1,5 +1,6 @@
 package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -118,6 +120,7 @@ fun SearchScreen(
                             onClick = {
                                 query = ""
                                 searchViewModel.clearSearch()
+                                focusManager.clearFocus()
                             }
                         ) {
                             Icon(
@@ -182,26 +185,56 @@ fun SearchScreen(
                 is SearchState.Success -> {
                     val tracks = (screenState as SearchState.Success).foundList
 
-                    LazyColumn {
-                        items(tracks.size) { index ->
-                            TrackListItem(
-                                track = tracks[index],
-                                onClick = {}
-                            )
+                    if (tracks.isEmpty()) {
+                        SearchPlaceholder(
+                            imageRes = R.drawable.ic_music,
+                            textRes = R.string.no_songs_found
+                        )
+                    } else {
+                        LazyColumn {
+                            items(tracks.size) { index ->
+                                TrackListItem(
+                                    track = tracks[index],
+                                    onClick = {}
+                                )
+                            }
                         }
                     }
                 }
 
                 is SearchState.Fail -> {
-                    val error = (screenState as SearchState.Fail).error
-
-                    Text(
-                        text = "Ошибка: $error",
-                        color = Color.Red,
-                        modifier = Modifier.padding(16.dp)
+                    SearchPlaceholder(
+                        imageRes = R.drawable.ic_music,
+                        textRes = R.string.error
                     )
+                    Button(onClick = { searchViewModel.retryLastSearch() }) {
+                        Text(text = stringResource(R.string.refresh))
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun SearchPlaceholder(
+    imageRes: Int,
+    textRes: Int
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 48.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = imageRes),
+            contentDescription = stringResource(id = textRes),
+            modifier = Modifier.size(96.dp)
+        )
+        Text(
+            text = stringResource(id = textRes),
+            modifier = Modifier.padding(top = 12.dp)
+        )
     }
 }

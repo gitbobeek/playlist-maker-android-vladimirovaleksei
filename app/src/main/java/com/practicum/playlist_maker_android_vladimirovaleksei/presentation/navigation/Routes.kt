@@ -6,4 +6,9 @@ sealed class Routes(val route: String) {
     object Playlists : Routes("playlists")
     object Search : Routes("search")
     object Settings : Routes("settings")
+    object Playlist : Routes("playlist/{playlistId}")
+    object Track : Routes("track/{trackId}")
+
+    fun playlistRoute(playlistId: Long): String = "playlist/$playlistId"
+    fun trackRoute(trackId: Long): String = "track/$trackId"
 }

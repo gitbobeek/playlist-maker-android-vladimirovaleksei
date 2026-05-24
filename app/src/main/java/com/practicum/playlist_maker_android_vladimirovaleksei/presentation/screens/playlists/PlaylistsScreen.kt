@@ -35,7 +35,7 @@ fun PlaylistsScreen(
     modifier: Modifier,
     playlistsViewModel: PlaylistsViewModel,
     addNewPlaylist: () -> Unit,
-    navigateToPlaylist: (Int) -> Unit,
+    navigateToPlaylist: (Long) -> Unit,
     navigateBack: () -> Unit
 ) {
     val playlists by playlistsViewModel.playlists.collectAsState(emptyList())
@@ -69,8 +69,9 @@ fun PlaylistsScreen(
             ) {
                 LazyColumn(modifier = modifier.fillMaxSize()) {
                     items(playlists.size) { index ->
-                        PlaylistListItem(playlist = playlists[index]) {
-                            navigateToPlaylist(index)
+                        val playlist = playlists[index]
+                        PlaylistListItem(playlist = playlist) {
+                            navigateToPlaylist(playlist.id)
                         }
                         HorizontalDivider(thickness = 0.5.dp)
                     }

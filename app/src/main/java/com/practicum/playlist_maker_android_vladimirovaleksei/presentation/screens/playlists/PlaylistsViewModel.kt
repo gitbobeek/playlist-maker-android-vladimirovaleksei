@@ -2,9 +2,6 @@ package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.scre
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practicum.playlist_maker_android_vladimirovaleksei.data.PlaylistRepositoryImpl
-import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.DatabaseMock
-import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.TrackRepositoryImpl
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Playlist
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Track
 import com.practicum.playlist_maker_android_vladimirovaleksei.domain.api.PlaylistRepository
@@ -12,23 +9,16 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.domain.api.TrackRe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
-class PlaylistsViewModel() : ViewModel() {
-    private val playlistRepository: PlaylistRepository = PlaylistRepositoryImpl(scope = viewModelScope)
-    private val trackRepository: TrackRepository = TrackRepositoryImpl(scope = viewModelScope)
-    private val databaseRepository: DatabaseMock = DatabaseMock(scope = viewModelScope)
+class PlaylistsViewModel(
+    private val playlistRepository: PlaylistRepository,
+    private val trackRepository: TrackRepository
+) : ViewModel() {
 
-    val playlists: Flow<List<Playlist>> = flow {
-        val collectedPlaylists = mutableListOf<Playlist>()
-        playlistRepository.getAllPlaylists().collect { playlist ->
-            collectedPlaylists.addAll(playlist)
-            emit(collectedPlaylists.toList())
-        }
-    }
+    val playlists: Flow<List<Playlist>> = playlistRepository.getAllPlaylists()
 
-    val favoriteList: Flow<List<Track>> = databaseRepository.getFavoriteTracks()
+    val favoriteList: Flow<List<Track>> = trackRepository.getFavoriteTracks()
 
     fun createNewPlaylist(namePlaylist: String, description: String) {
         viewModelScope.launch(Dispatchers.IO) {

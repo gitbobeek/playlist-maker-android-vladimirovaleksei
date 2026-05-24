@@ -13,8 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.practicum.playlist_maker_android_vladimirovaleksei.R
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Track
 
@@ -24,6 +26,11 @@ fun TrackListItem(
     onLongClick: (() -> Unit)? = null,
     onClick: () -> Unit
 ) {
+    val trackName = track.trackName.ifBlank { stringResource(R.string.unknown_track) }
+    val artistName = track.artistName.ifBlank { stringResource(R.string.unknown_artist) }
+    val trackTime = track.trackTime.ifBlank { "00:00" }
+    val placeholder = painterResource(id = R.drawable.ic_music)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,23 +42,33 @@ fun TrackListItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Image(
-            modifier = Modifier.size(64.dp),
-            painter = painterResource(id = R.drawable.ic_music),
-            contentDescription = "Трек ${track.trackName}",
-        )
+        if (track.image.isBlank()) {
+            Image(
+                modifier = Modifier.size(64.dp),
+                painter = placeholder,
+                contentDescription = "Трек $trackName",
+            )
+        } else {
+            AsyncImage(
+                modifier = Modifier.size(64.dp),
+                model = track.image,
+                placeholder = placeholder,
+                error = placeholder,
+                contentDescription = "Трек $trackName",
+            )
+        }
         Column(
             modifier = Modifier.weight(1f).padding(),
             horizontalAlignment = Alignment.Start
         ) {
-            Text(track.trackName, fontWeight = FontWeight.Bold)
-            Text(track.artistName)
+            Text(trackName, fontWeight = FontWeight.Bold)
+            Text(artistName)
         }
         Column(
             modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.End
         ) {
-            Text(track.trackTime)
+            Text(trackTime)
         }
     }
 }

@@ -2,9 +2,9 @@ package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.scre
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practicum.playlist_maker_android_vladimirovaleksei.data.SearchHistoryRepositoryImpl
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.Word
 import com.practicum.playlist_maker_android_vladimirovaleksei.domain.api.TrackRepository
+import com.practicum.playlist_maker_android_vladimirovaleksei.domain.api.SearchHistoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,9 +17,9 @@ import okio.IOException
 
 @OptIn(FlowPreview::class)
 class SearchViewModel(
-    private val trackRepository: TrackRepository
+    private val trackRepository: TrackRepository,
+    private val searchHistoryRepository: SearchHistoryRepository
 ) : ViewModel() {
-    private val searchHistoryRepository = SearchHistoryRepositoryImpl(scope = viewModelScope)
     private val _searchQuery = MutableStateFlow("")
     private val _searchScreenState = MutableStateFlow<SearchState>(SearchState.Initial)
     val searchScreenState = _searchScreenState.asStateFlow()
@@ -27,9 +27,13 @@ class SearchViewModel(
     private val _history = MutableStateFlow<List<Word>>(emptyList())
     val history = _history.asStateFlow()
 
+    private var lastFailedQuery: String? = null
+
 
     init {
-        _history.value = searchHistoryRepository.getHistoryRequests()
+        viewModelScope.launch {
+            _history.value = searchHistoryRepository.getHistoryRequests()
+        }
 
         viewModelScope.launch {
             _searchQuery
@@ -59,10 +63,12 @@ class SearchViewModel(
                 }
 
                 val list = trackRepository.searchTracks(request)
+                lastFailedQuery = null
                 _searchScreenState.update {
                     SearchState.Success(list)
                 }
             } catch (e: IOException) {
+                lastFailedQuery = request
                 _searchScreenState.update {
                     SearchState.Fail(e.message ?: "Unknown error")
                 }
@@ -70,10 +76,15 @@ class SearchViewModel(
         }
     }
 
+    fun retryLastSearch() {
+        val query = lastFailedQuery ?: return
+        if (query.isBlank()) return
+        performSearch(query)
+    }
 
     fun clearSearch() {
         _searchScreenState.update { SearchState.Initial }
     }
 
-    fun getHistoryList() = searchHistoryRepository.getHistoryRequests()
+    fun getHistoryList(): List<Word> = history.value
 }
