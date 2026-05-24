@@ -1,6 +1,5 @@
 package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlists
 
-import androidx.compose.foundation.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.practicum.playlist_maker_android_vladimirovaleksei.R
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components.PlaylistListItem
 
 @Composable

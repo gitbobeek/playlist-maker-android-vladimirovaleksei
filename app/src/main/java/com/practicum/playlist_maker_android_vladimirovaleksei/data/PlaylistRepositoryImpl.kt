@@ -6,7 +6,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Playlist
 
-class PlaylistRepositoryImpl() : PlaylistRepository {
+class PlaylistRepositoryImpl(
+    private val scope: CoroutineScope
+) : PlaylistRepository {
 
     private val database = DatabaseMock(
         scope = scope
