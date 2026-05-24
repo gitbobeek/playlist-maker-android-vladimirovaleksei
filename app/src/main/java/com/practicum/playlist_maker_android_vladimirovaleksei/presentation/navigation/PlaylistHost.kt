@@ -15,6 +15,8 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.data.PlaylistRepos
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.SearchHistoryRepositoryImpl
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.TrackRepositoryImpl
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoriteScreen
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoriteViewModel
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoriteViewModelFactory
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist.PlaylistScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist.PlaylistViewModel
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist.PlaylistViewModelFactory
@@ -48,7 +50,16 @@ fun PlaylistHost() {
         }
 
         composable(route = Routes.Favorite.route) {
-            FavoriteScreen()
+            val favoriteViewModel: FavoriteViewModel = viewModel(
+                factory = FavoriteViewModelFactory(
+                    trackRepository = TrackRepositoryImpl(database = database)
+                )
+            )
+            FavoriteScreen(
+                modifier = Modifier,
+                favoriteViewModel = favoriteViewModel,
+                onBack = { navController.popBackStack() }
+            )
         }
 
         composable(route = Routes.Playlists.route) {

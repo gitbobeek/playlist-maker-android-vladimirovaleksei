@@ -9,18 +9,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +47,53 @@ fun PlaylistsScreen(
     navigateBack: () -> Unit
 ) {
     val playlists by playlistsViewModel.playlists.collectAsState(emptyList())
+    var showCreateDialog by remember { mutableStateOf(false) }
+    var playlistName by remember { mutableStateOf("") }
+    var playlistDescription by remember { mutableStateOf("") }
+
+    if (showCreateDialog) {
+        AlertDialog(
+            onDismissRequest = { showCreateDialog = false },
+            title = { Text(text = stringResource(R.string.create_playlist)) },
+            text = {
+                Column {
+                    TextField(
+                        value = playlistName,
+                        onValueChange = { playlistName = it },
+                        label = { Text(text = stringResource(R.string.playlist_name)) }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    TextField(
+                        value = playlistDescription,
+                        onValueChange = { playlistDescription = it },
+                        label = { Text(text = stringResource(R.string.playlist_description)) }
+                    )
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        if (playlistName.isNotBlank()) {
+                            playlistsViewModel.createNewPlaylist(
+                                namePlaylist = playlistName.trim(),
+                                description = playlistDescription.trim()
+                            )
+                            playlistName = ""
+                            playlistDescription = ""
+                            showCreateDialog = false
+                        }
+                    }
+                ) {
+                    Text(text = stringResource(R.string.create))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showCreateDialog = false }) {
+                    Text(text = stringResource(R.string.cancel))
+                }
+            }
+        )
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -82,7 +137,7 @@ fun PlaylistsScreen(
             modifier = Modifier
                 .padding(32.dp)
                 .align(Alignment.BottomEnd),
-            onClick = { addNewPlaylist() },
+            onClick = { showCreateDialog = true },
             containerColor = Color.Gray,
             contentColor = Color.White,
             shape = CircleShape
