@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,12 +19,13 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.compo
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components.TrackListItem
 
 @Composable
-fun FavoriteScreen(
+fun FavoritesScreen(
     modifier: Modifier = Modifier,
-    favoriteViewModel: FavoriteViewModel,
-    onBack: () -> Unit
+    viewModel: FavoriteViewModel,
+    onBack: () -> Unit,
+    onTrackClick: (Long) -> Unit
 ) {
-    val favorites by favoriteViewModel.favoriteTracks.collectAsState(emptyList())
+    val favoriteList by viewModel.favoriteList.collectAsState(emptyList())
 
     Scaffold(
         topBar = {
@@ -33,7 +35,7 @@ fun FavoriteScreen(
             )
         }
     ) { paddingValues ->
-        if (favorites.isEmpty()) {
+        if (favoriteList.isEmpty()) {
             Box(
                 modifier = modifier
                     .fillMaxSize()
@@ -48,11 +50,14 @@ fun FavoriteScreen(
                     .fillMaxSize()
                     .padding(paddingValues)
             ) {
-                items(favorites.size) { index ->
+                items(favoriteList.size) { index ->
+                    val track = favoriteList[index]
                     TrackListItem(
-                        track = favorites[index],
-                        onClick = { }
+                        track = track,
+                        onClick = { onTrackClick(track.id) },
+                        onLongClick = { viewModel.toggleFavorite(track, false) }
                     )
+                    HorizontalDivider(thickness = 0.5.dp)
                 }
             }
         }

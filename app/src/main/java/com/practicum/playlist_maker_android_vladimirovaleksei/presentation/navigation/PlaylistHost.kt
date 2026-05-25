@@ -14,7 +14,6 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.MainScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.PlaylistRepositoryImpl
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.SearchHistoryRepositoryImpl
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.TrackRepositoryImpl
-import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoriteScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoriteViewModel
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoriteViewModelFactory
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist.PlaylistScreen
@@ -28,6 +27,7 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.scree
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search.SearchViewModel
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search.SearchViewModelFactory
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.track.TrackScreen
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoritesScreen
 
 @Composable
 fun PlaylistHost() {
@@ -55,10 +55,13 @@ fun PlaylistHost() {
                     trackRepository = TrackRepositoryImpl(database = database)
                 )
             )
-            FavoriteScreen(
+            FavoritesScreen(
                 modifier = Modifier,
-                favoriteViewModel = favoriteViewModel,
-                onBack = { navController.popBackStack() }
+                viewModel = favoriteViewModel,
+                onBack = { navController.popBackStack() },
+                onTrackClick = { trackId ->
+                    navController.navigate(Routes.Track.trackRoute(trackId))
+                }
             )
         }
 
