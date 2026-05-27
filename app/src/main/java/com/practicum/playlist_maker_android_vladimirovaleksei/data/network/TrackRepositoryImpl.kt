@@ -71,4 +71,12 @@ class TrackRepositoryImpl(
     override fun getFavoriteTracks(): Flow<List<Track>> {
         return trackDao.getFavoriteTracks().map { list -> list.map { it.toDomain() } }
     }
+
+    override fun getTrackById(trackId: Long): Flow<Track?> {
+        return trackDao.getTrackById(trackId).map { it?.toDomain() }
+    }
+
+    override suspend fun saveTrack(track: Track) {
+        trackDao.insertTrack(track.toEntity())
+    }
 }

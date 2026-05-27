@@ -17,4 +17,8 @@ interface TrackRepository {
     suspend fun deleteTrackFromPlaylist(track: Track)
 
     suspend fun updateTrackFavoriteStatus(track: Track, isFavorite: Boolean)
+
+    fun getTrackById(trackId: Long): Flow<Track?>
+
+    suspend fun saveTrack(track: Track)
 }

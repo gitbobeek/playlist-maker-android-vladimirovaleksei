@@ -23,5 +23,7 @@ interface TrackDao {
 
     @Query("UPDATE tracks SET playlistId = 0 WHERE trackId = :trackId")
     suspend fun clearTrackFromPlaylist(trackId: Long)
-}
 
+    @Query("SELECT * FROM tracks WHERE trackId = :trackId LIMIT 1")
+    fun getTrackById(trackId: Long): Flow<TrackEntity?>
+}

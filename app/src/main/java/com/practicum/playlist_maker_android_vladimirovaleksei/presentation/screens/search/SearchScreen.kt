@@ -44,12 +44,14 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.YpDarkGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.YpLightGray
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.yandexSansRegular
+import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Track
 
 @Composable
 fun SearchScreen(
     modifier: Modifier = Modifier,
     searchViewModel: SearchViewModel,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onTrackClick: (Track) -> Unit
 ) {
     val screenState by searchViewModel.searchScreenState.collectAsState()
     val historyList by searchViewModel.history.collectAsState()
@@ -195,7 +197,7 @@ fun SearchScreen(
                             items(tracks.size) { index ->
                                 TrackListItem(
                                     track = tracks[index],
-                                    onClick = {}
+                                    onClick = { onTrackClick(tracks[index]) }
                                 )
                             }
                         }

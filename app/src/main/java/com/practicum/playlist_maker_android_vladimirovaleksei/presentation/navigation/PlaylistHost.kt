@@ -30,6 +30,8 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.scree
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search.SearchViewModel
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search.SearchViewModelFactory
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.track.TrackScreen
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.track.TrackViewModel
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.track.TrackViewModelFactory
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.FavoritesScreen
 
 @Composable
@@ -126,9 +128,16 @@ fun PlaylistHost() {
             arguments = listOf(navArgument("trackId") { type = NavType.LongType })
         ) { backStackEntry ->
             val trackId = backStackEntry.arguments?.getLong("trackId") ?: 0L
+            val trackViewModel: TrackViewModel = viewModel(
+                factory = TrackViewModelFactory(
+                    trackId = trackId,
+                    trackRepository = TrackRepositoryImpl(database = database),
+                    playlistRepository = PlaylistRepositoryImpl(database = database)
+                )
+            )
             TrackScreen(
                 modifier = Modifier,
-                trackId = trackId,
+                viewModel = trackViewModel,
                 onBack = { navController.popBackStack() }
             )
         }
@@ -145,7 +154,11 @@ fun PlaylistHost() {
             SearchScreen(
                 modifier = Modifier,
                 searchViewModel = searchViewModel,
-                onClick = { navController.popBackStack() }
+                onClick = { navController.popBackStack() },
+                onTrackClick = { track ->
+                    searchViewModel.cacheTrack(track)
+                    navController.navigate(Routes.Track.trackRoute(track.id))
+                }
             )
         }
 

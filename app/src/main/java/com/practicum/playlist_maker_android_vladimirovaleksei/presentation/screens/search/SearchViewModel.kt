@@ -3,6 +3,7 @@ package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.scre
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.Word
+import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entity.Track
 import com.practicum.playlist_maker_android_vladimirovaleksei.domain.api.TrackRepository
 import com.practicum.playlist_maker_android_vladimirovaleksei.domain.api.SearchHistoryRepository
 import kotlinx.coroutines.Dispatchers
@@ -87,4 +88,10 @@ class SearchViewModel(
     }
 
     fun getHistoryList(): List<Word> = history.value
+
+    fun cacheTrack(track: Track) {
+        viewModelScope.launch(Dispatchers.IO) {
+            trackRepository.saveTrack(track)
+        }
+    }
 }
