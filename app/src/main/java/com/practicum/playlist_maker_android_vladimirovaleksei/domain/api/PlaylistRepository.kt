@@ -9,7 +9,7 @@ interface PlaylistRepository {
 
     fun getAllPlaylists(): Flow<List<Playlist>>
 
-    suspend fun addNewPlaylist(name: String, description: String)
+    suspend fun addNewPlaylist(name: String, description: String, coverImageUri: String? = null)
 
     suspend fun deletePlaylistById(id: Long)
 }

@@ -4,31 +4,22 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,53 +38,6 @@ fun PlaylistsScreen(
     navigateBack: () -> Unit
 ) {
     val playlists by playlistsViewModel.playlists.collectAsState(emptyList())
-    var showCreateDialog by remember { mutableStateOf(false) }
-    var playlistName by remember { mutableStateOf("") }
-    var playlistDescription by remember { mutableStateOf("") }
-
-    if (showCreateDialog) {
-        AlertDialog(
-            onDismissRequest = { showCreateDialog = false },
-            title = { Text(text = stringResource(R.string.create_playlist)) },
-            text = {
-                Column {
-                    TextField(
-                        value = playlistName,
-                        onValueChange = { playlistName = it },
-                        label = { Text(text = stringResource(R.string.playlist_name)) }
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    TextField(
-                        value = playlistDescription,
-                        onValueChange = { playlistDescription = it },
-                        label = { Text(text = stringResource(R.string.playlist_description)) }
-                    )
-                }
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        if (playlistName.isNotBlank()) {
-                            playlistsViewModel.createNewPlaylist(
-                                namePlaylist = playlistName.trim(),
-                                description = playlistDescription.trim()
-                            )
-                            playlistName = ""
-                            playlistDescription = ""
-                            showCreateDialog = false
-                        }
-                    }
-                ) {
-                    Text(text = stringResource(R.string.create))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showCreateDialog = false }) {
-                    Text(text = stringResource(R.string.cancel))
-                }
-            }
-        )
-    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -101,7 +45,7 @@ fun PlaylistsScreen(
                 .fillMaxSize()
                 .padding(top = 8.dp)
         ) {
-            Row(
+            androidx.compose.foundation.layout.Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.LightGray.copy(alpha = 0.7f)),
@@ -109,35 +53,37 @@ fun PlaylistsScreen(
             ) {
                 Icon(
                     modifier = Modifier
-                        .size(32.dp)
+                        .padding(start = 8.dp)
                         .clickable { navigateBack() },
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.search_icon)
+                    contentDescription = stringResource(R.string.go_back)
                 )
-                Text("Playlists", fontSize = 32.sp)
+                Text(
+                    text = stringResource(R.string.playlists),
+                    fontSize = 32.sp,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
             }
 
-            Column(
-                modifier = Modifier
+            LazyColumn(
+                modifier = modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp, start = 8.dp, end = 8.dp),
+                    .padding(top = 4.dp, start = 8.dp, end = 8.dp)
             ) {
-                LazyColumn(modifier = modifier.fillMaxSize()) {
-                    items(playlists.size) { index ->
-                        val playlist = playlists[index]
-                        PlaylistListItem(playlist = playlist) {
-                            navigateToPlaylist(playlist.id)
-                        }
-                        HorizontalDivider(thickness = 0.5.dp)
+                items(playlists) { playlist ->
+                    PlaylistListItem(playlist = playlist) {
+                        navigateToPlaylist(playlist.id)
                     }
+                    HorizontalDivider(thickness = 0.5.dp)
                 }
             }
         }
+
         FloatingActionButton(
             modifier = Modifier
                 .padding(32.dp)
                 .align(Alignment.BottomEnd),
-            onClick = { showCreateDialog = true },
+            onClick = addNewPlaylist,
             containerColor = Color.Gray,
             contentColor = Color.White,
             shape = CircleShape

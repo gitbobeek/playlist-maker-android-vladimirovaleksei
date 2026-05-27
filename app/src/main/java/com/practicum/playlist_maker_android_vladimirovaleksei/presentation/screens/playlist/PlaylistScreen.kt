@@ -1,5 +1,6 @@
 package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -22,15 +25,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.practicum.playlist_maker_android_vladimirovaleksei.R
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components.TrackListItem
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.yandexSansMedium
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.yandexSansRegular
-import androidx.compose.material3.ExperimentalMaterial3Api
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +46,7 @@ fun PlaylistScreen(
     onBack: () -> Unit
 ) {
     val playlist by playlistViewModel.playlist.collectAsState(null)
+    val placeholder = painterResource(id = R.drawable.ic_music)
 
     Scaffold(
         topBar = {
@@ -77,7 +82,9 @@ fun PlaylistScreen(
                 CircularProgressIndicator()
             }
         } else {
-            val tracks = playlist?.tracks.orEmpty()
+            val currentPlaylist = playlist!!
+            val tracks = currentPlaylist.tracks
+
             Column(
                 modifier = modifier
                     .fillMaxSize()
@@ -85,23 +92,37 @@ fun PlaylistScreen(
                     .padding(paddingValues)
                     .padding(16.dp)
             ) {
-                Image(
-                    modifier = Modifier
-                        .size(128.dp)
-                        .align(Alignment.CenterHorizontally),
-                    painter = painterResource(id = R.drawable.ic_music),
-                    contentDescription = playlist?.name
-                )
+                if (currentPlaylist.coverImageUri.isNullOrBlank()) {
+                    Image(
+                        modifier = Modifier
+                            .size(128.dp)
+                            .align(Alignment.CenterHorizontally),
+                        painter = placeholder,
+                        contentDescription = stringResource(R.string.playlist_cover)
+                    )
+                } else {
+                    AsyncImage(
+                        model = Uri.parse(currentPlaylist.coverImageUri),
+                        contentDescription = stringResource(R.string.playlist_cover),
+                        modifier = Modifier
+                            .size(128.dp)
+                            .align(Alignment.CenterHorizontally),
+                        contentScale = ContentScale.Crop,
+                        placeholder = placeholder,
+                        error = placeholder
+                    )
+                }
+
                 Text(
                     modifier = Modifier.padding(top = 12.dp),
-                    text = playlist?.name.orEmpty(),
+                    text = currentPlaylist.name,
                     fontFamily = yandexSansMedium,
                     fontSize = 20.sp
                 )
-                if (!playlist?.description.isNullOrBlank()) {
+                if (currentPlaylist.description.isNotBlank()) {
                     Text(
                         modifier = Modifier.padding(top = 6.dp),
-                        text = playlist?.description.orEmpty(),
+                        text = currentPlaylist.description,
                         fontFamily = yandexSansRegular,
                         fontSize = 14.sp
                     )
@@ -121,8 +142,7 @@ fun PlaylistScreen(
                     )
                 } else {
                     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-                        items(tracks.size) { trackIndex ->
-                            val track = tracks[trackIndex]
+                        items(tracks) { track ->
                             TrackListItem(
                                 track = track,
                                 onClick = {

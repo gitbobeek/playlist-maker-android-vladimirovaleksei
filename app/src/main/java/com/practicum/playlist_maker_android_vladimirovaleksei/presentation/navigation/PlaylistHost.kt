@@ -19,6 +19,9 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.scree
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist.PlaylistScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist.PlaylistViewModel
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlist.PlaylistViewModelFactory
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlists.NewPlaylistScreen
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlists.NewPlaylistViewModel
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlists.NewPlaylistViewModelFactory
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.playlists.PlaylistsScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.search.SearchScreen
 import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.SettingsScreen
@@ -75,11 +78,23 @@ fun PlaylistHost() {
             PlaylistsScreen(
                 modifier = Modifier,
                 playlistsViewModel = playlistsViewModel,
-                addNewPlaylist = { },
+                addNewPlaylist = { navController.navigate(Routes.NewPlaylist.route) },
                 navigateToPlaylist = { playlistId ->
                     navController.navigate(Routes.Playlist.playlistRoute(playlistId))
                 },
                 navigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(route = Routes.NewPlaylist.route) {
+            val newPlaylistViewModel: NewPlaylistViewModel = viewModel(
+                factory = NewPlaylistViewModelFactory(
+                    playlistRepository = PlaylistRepositoryImpl(database = database)
+                )
+            )
+            NewPlaylistScreen(
+                viewModel = newPlaylistViewModel,
+                onBack = { navController.popBackStack() }
             )
         }
 

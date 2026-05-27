@@ -4,6 +4,7 @@ sealed class Routes(val route: String) {
     object Main : Routes("main")
     object Favorite : Routes("favorite")
     object Playlists : Routes("playlists")
+    object NewPlaylist : Routes("new_playlist")
     object Search : Routes("search")
     object Settings : Routes("settings")
     object Playlist : Routes("playlist/{playlistId}")
