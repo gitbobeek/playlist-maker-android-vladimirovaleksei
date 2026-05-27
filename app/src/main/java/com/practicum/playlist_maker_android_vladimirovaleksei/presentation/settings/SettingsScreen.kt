@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.settings
 
 import android.content.ActivityNotFoundException
 import android.content.Intent

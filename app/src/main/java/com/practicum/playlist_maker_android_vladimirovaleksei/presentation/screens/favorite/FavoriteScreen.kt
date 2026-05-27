@@ -1,4 +1,4 @@
-package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens
+package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.screens.favorite
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
