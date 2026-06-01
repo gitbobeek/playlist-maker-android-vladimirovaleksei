@@ -24,10 +24,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.practicum.playlist_maker_android_vladimirovaleksei.navigation.PlaylistHost
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.MainBlue
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.YpDarkGray
-import com.practicum.playlist_maker_android_vladimirovaleksei.ui.theme.yandexSansMedium
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.navigation.PlaylistHost
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.MainBlue
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.YpDarkGray
+import com.practicum.playlist_maker_android_vladimirovaleksei.presentation.theme.yandexSansMedium
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
