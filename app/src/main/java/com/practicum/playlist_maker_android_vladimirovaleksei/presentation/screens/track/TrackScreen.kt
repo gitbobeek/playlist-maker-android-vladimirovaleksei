@@ -177,10 +177,13 @@ fun TrackScreen(
                     androidx.compose.foundation.lazy.LazyColumn {
                         items(playlists.size) { index ->
                             val playlist = playlists[index]
-                            PlaylistListItem(playlist = playlist) {
-                                viewModel.addToPlaylist(playlist.id)
-                                isSheetVisible = false
-                            }
+                            PlaylistListItem(
+                                playlist = playlist,
+                                onClick = {
+                                    viewModel.addToPlaylist(playlist.id)
+                                    isSheetVisible = false
+                                }
+                            )
                         }
                     }
                 }

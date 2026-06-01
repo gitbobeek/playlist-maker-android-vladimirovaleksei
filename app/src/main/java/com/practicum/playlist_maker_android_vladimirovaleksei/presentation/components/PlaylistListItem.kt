@@ -1,7 +1,7 @@
 package com.practicum.playlist_maker_android_vladimirovaleksei.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +25,16 @@ import com.practicum.playlist_maker_android_vladimirovaleksei.data.network.entit
 @Composable
 fun PlaylistListItem(
     playlist: Playlist,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onLongClick: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = { onClick.invoke() }),
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = { onLongClick?.invoke() }
+            ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         val placeholder = painterResource(R.drawable.ic_music)

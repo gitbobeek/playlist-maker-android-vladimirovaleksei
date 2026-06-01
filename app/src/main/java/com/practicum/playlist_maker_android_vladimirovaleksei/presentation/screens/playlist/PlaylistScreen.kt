@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -66,6 +68,20 @@ fun PlaylistScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_arrow_back),
                             contentDescription = stringResource(id = R.string.go_back)
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            playlistViewModel.deletePlaylist()
+                            onBack()
+                        },
+                        enabled = playlist != null
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Delete,
+                            contentDescription = stringResource(R.string.delete_playlist)
                         )
                     }
                 }

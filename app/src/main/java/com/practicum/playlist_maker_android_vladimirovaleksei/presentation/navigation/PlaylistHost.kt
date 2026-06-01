@@ -108,7 +108,8 @@ fun PlaylistHost() {
             val playlistViewModel: PlaylistViewModel = viewModel(
                 factory = PlaylistViewModelFactory(
                     playlistId = playlistId,
-                    playlistRepository = PlaylistRepositoryImpl(database = database)
+                    playlistRepository = PlaylistRepositoryImpl(database = database),
+                    trackRepository = TrackRepositoryImpl(database = database)
                 )
             )
             PlaylistScreen(
